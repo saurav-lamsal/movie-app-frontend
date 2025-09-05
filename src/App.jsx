@@ -7,6 +7,7 @@ import ToggleTheme from "./ToggleTheme";
 import Search from "./components/Search/Search";
 import MovieCard from "./components/MovieCard/MovieCard";
 import { useState } from "react";
+import "./app.css";
 
 const movieData = [
   { id: 1, title: "Jari 2", genre: "Drama" },
@@ -14,12 +15,12 @@ const movieData = [
   { id: 3, title: "Houseful", genre: "comedy" },
   { id: 4, title: "Inception", genre: "Thriller" },
   { id: 5, title: "jari", genre: "Drama" },
-];
+]; //data will be from api
 
 //[jari2, titanic,houseful,inception,jari]
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const filteredMovies = movieData?.filter((movie) =>
     movie?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
@@ -32,10 +33,15 @@ const App = () => {
       <div>
         {/* <ToggleTheme /> */}
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
-        {movieData.map((item) => (
-          <MovieCard genre={item.genre} title={item.title} />
-        ))}
+        <div className="cards">
+          {filteredMovies.length > 0 ? (
+            filteredMovies.map((item) => (
+              <MovieCard genre={item.genre} title={item.title} />
+            ))
+          ) : (
+            <>NO MOVIE FOUND</>
+          )}
+        </div>
       </div>
       {/* <Footer/> */}
     </>
