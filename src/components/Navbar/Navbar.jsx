@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 const Navbar = () => {
   return (
@@ -5,7 +6,7 @@ const Navbar = () => {
       <div className="logo">MovieHub...</div>
       <ul className="nav-links">
         <li>
-          <a href="/">Home</a>
+          <Link to={"home"}>Home</Link>
         </li>
         <li>
           <a href="/about">About</a>
