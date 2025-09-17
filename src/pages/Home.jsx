@@ -3,21 +3,41 @@ import Search from "../components/Search/Search";
 import MovieCard from "../components/MovieCard/MovieCard";
 import { Link } from "react-router-dom";
 
+const categories = ["Trending", "Top Rated", "Upcoming", "Now Playing"];
+
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [movies, setMovies] = useState(); // state to hold movie data
   const [loading, setLoading] = useState(true); //loading state to manange UI while fetchingdata
   const [error, setError] = useState(); //error handling state
+  const [selectedCategory, setSelectedCategory] = useState("");
+  console.log(selectedCategory, "sl ");
 
+  //logic for frontend search
   const filteredMovies = movies?.filter((movie) =>
     movie?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const url =
+      let url =
         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+
+      if (selectedCategory === "Trending") {
+        // "===" --> checks both value and type
+        url = "https://api.themoviedb.org/3/trending/movie/week?language=en-US";
+      } else if (selectedCategory === "Top Rated") {
+        url =
+          "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+      } else if (selectedCategory === "Upcoming") {
+        url =
+          "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+      } else if (selectedCategory === "Now Playing") {
+        url =
+          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+      }
+
       const options = {
         method: "GET",
         headers: {
@@ -37,11 +57,21 @@ const Home = () => {
     };
 
     fetchMovies();
-  }, []); // Dependency array: Empty dependency array ensures the useEffect runs only once
+  }, [selectedCategory]); // Dependency array: Empty dependency array ensures the useEffect runs only once
 
   return (
     <>
-      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <div className="header">
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        {categories.map((item) => (
+          <button
+            className="category-buttons"
+            onClick={() => setSelectedCategory(item)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
       <div className="movie-grid">
         {/* <ToggleTheme /> */}
         {/* <div className="movie-card"> */}
