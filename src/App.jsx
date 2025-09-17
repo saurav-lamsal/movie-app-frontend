@@ -1,13 +1,9 @@
-import Counter from "./Counter";
-import Movie from "./Movie";
 import Navbar from "./components/Navbar/Navbar";
-import WatchMovie from "./WatchMovie";
-import ToggleTheme from "./ToggleTheme";
-import Search from "./components/Search/Search";
-import MovieCard from "./components/MovieCard/MovieCard";
 import "./app.css";
-import { Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import MovieDetails from "./pages/MovieDetails";
 
 // const movieData = [
 //   { id: 1, title: "Jari 2", genre: "Drama" },
@@ -23,14 +19,17 @@ const App = () => {
   // functional component
   return (
     // react fragments
-    <Router>
+    <BrowserRouter>
       <Navbar />
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/movie/:movieId" element={<MovieDetails />} />
         {/* <Route path="/" element={<About />} /> */}
         <Route />
       </Routes>
-    </Router>
+      {/* <Footer />; */}
+    </BrowserRouter>
   );
 };
 

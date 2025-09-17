@@ -6,16 +6,16 @@ const Navbar = () => {
       <div className="logo">MovieHub...</div>
       <ul className="nav-links">
         <li>
-          <Link to={"home"}>Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a href="/about">About</a>
+          <Link to="/about">About</Link>
         </li>
         <li>
-          <a href="/movies">Movies</a>
+          <Link to="/movies">Movies</Link>
         </li>
         <li>
-          <a href="/contact">Contact</a>
+          <Link to="/contact">Contact</Link>
         </li>
       </ul>
     </nav>

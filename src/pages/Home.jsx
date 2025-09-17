@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Search from "../components/Search/Search";
+import MovieCard from "../components/MovieCard/MovieCard";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,8 +13,6 @@ const Home = () => {
   const filteredMovies = movies?.filter((movie) =>
     movie?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
-
-  console.log(filteredMovies, "ff");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -37,7 +38,6 @@ const Home = () => {
 
     fetchMovies();
   }, []); // Dependency array: Empty dependency array ensures the useEffect runs only once
-  console.log(movies, "mov");
 
   return (
     <>
@@ -47,11 +47,13 @@ const Home = () => {
         {/* <div className="movie-card"> */}
         {filteredMovies?.length > 0 ? (
           filteredMovies.map((item) => (
-            <MovieCard
-              genre={item.genre}
-              title={item.title}
-              imgSrc={item.poster_path}
-            />
+            <Link to={`/movie/${item.id}`}>
+              <MovieCard
+                genre={item.genre}
+                title={item.title}
+                imgSrc={item.poster_path}
+              />
+            </Link>
           ))
         ) : loading ? (
           <div className="loader">Loading...</div>
@@ -62,7 +64,6 @@ const Home = () => {
         )}
       </div>
       {/* </div> */}
-      <Footer />;
     </>
   );
 };
