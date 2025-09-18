@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 const categories = ["Trending", "Top Rated", "Upcoming", "Now Playing"];
 
+const obj = { name: "abhishek", lastname: "Chaudhary" }; // key-value pair
+
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -12,7 +14,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true); //loading state to manange UI while fetchingdata
   const [error, setError] = useState(); //error handling state
   const [selectedCategory, setSelectedCategory] = useState("");
-  console.log(selectedCategory, "sl ");
+
+  const [favorites, setFavorites] = useState([]);
 
   //logic for frontend search
   const filteredMovies = movies?.filter((movie) =>
@@ -59,6 +62,23 @@ const Home = () => {
     fetchMovies();
   }, [selectedCategory]); // Dependency array: Empty dependency array ensures the useEffect runs only once
 
+  useEffect(() => {
+    //Get favorite movies from localStorage
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")); // JSON.parse() js method, JSON-formatted string converts into javascript object
+    setFavorites(storedFavorites);
+  }, []);
+
+  const toggleFavorite = (movie) => {
+    let updateFavorites;
+    if (favorites.some((fav) => fav.id === movie.id)) {
+   // Remove movie from favorites
+      updateFavorites = favorites.filter((fav) => fav.id !== movie.id);
+    }else{
+        // Add movie to favorites
+        updateFavorites = [...favorites, movie] // arr =[1,2,3] arr2=[...arr, 4] ---> [1,2,3,4]---> destructuring array
+    }
+  };
+
   return (
     <>
       <div className="header">
@@ -82,6 +102,7 @@ const Home = () => {
                 genre={item.genre}
                 title={item.title}
                 imgSrc={item.poster_path}
+                onClick={toggleFavorite(filteredMovies)}
               />
             </Link>
           ))
