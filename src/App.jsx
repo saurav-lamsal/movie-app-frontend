@@ -2,8 +2,9 @@ import Navbar from "./components/Navbar/Navbar";
 import "./app.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import About from "./pages/About";
+import About from "./pages/Favorites";
 import MovieDetails from "./pages/MovieDetails";
+import Favorites from "./pages/Favorites";
 
 // const movieData = [
 //   { id: 1, title: "Jari 2", genre: "Drama" },
@@ -23,7 +24,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/movie/:movieId" element={<MovieDetails />} />
         {/* <Route path="/" element={<About />} /> */}
         <Route />

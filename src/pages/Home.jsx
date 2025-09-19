@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 
 const categories = ["Trending", "Top Rated", "Upcoming", "Now Playing"];
 
-const obj = { name: "abhishek", lastname: "Chaudhary" }; // key-value pair
-
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -64,21 +62,27 @@ const Home = () => {
 
   useEffect(() => {
     //Get favorite movies from localStorage
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")); // JSON.parse() js method, JSON-formatted string converts into javascript object
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || []; // JSON.parse() js method, JSON-formatted string converts into javascript object
     setFavorites(storedFavorites);
   }, []);
 
+  console.log(favorites, "fav");
+
   const toggleFavorite = (movie) => {
     let updateFavorites;
+    console.log(updateFavorites, "up");
     if (favorites.some((fav) => fav.id === movie.id)) {
-   // Remove movie from favorites
+      // Remove movie from favorites
       updateFavorites = favorites.filter((fav) => fav.id !== movie.id);
-    }else{
-        // Add movie to favorites
-        updateFavorites = [...favorites, movie] // arr =[1,2,3] arr2=[...arr, 4] ---> [1,2,3,4]---> destructuring array
+    } else {
+      // Add movie to favorites
+      updateFavorites = [...favorites, movie]; // arr =[1,2,3] arr2=[...arr, 4] ---> [1,2,3,4]---> destructuring array
     }
+    localStorage.setItem("favorites", JSON.stringify(updateFavorites));
+    setFavorites(updateFavorites);
   };
 
+  
   return (
     <>
       <div className="header">
@@ -97,14 +101,14 @@ const Home = () => {
         {/* <div className="movie-card"> */}
         {filteredMovies?.length > 0 ? (
           filteredMovies.map((item) => (
-            <Link to={`/movie/${item.id}`}>
-              <MovieCard
-                genre={item.genre}
-                title={item.title}
-                imgSrc={item.poster_path}
-                onClick={toggleFavorite(filteredMovies)}
-              />
-            </Link>
+            // <Link to={`/movie/${item.id}`}>
+            <MovieCard
+              genre={item.genre}
+              title={item.title}
+              imgSrc={item.poster_path}
+              onClick={() => toggleFavorite(filteredMovies)}
+            />
+            // </Link>
           ))
         ) : loading ? (
           <div className="loader">Loading...</div>

@@ -1,5 +1,5 @@
 import "./movieCard.css";
-const MovieCard = ({ title, genre, imgSrc,onClick }) => {
+const MovieCard = ({ title, genre, imgSrc, onClick }) => {
   return (
     <div
       className="movie-card"
@@ -13,7 +13,6 @@ const MovieCard = ({ title, genre, imgSrc,onClick }) => {
       <img src={`https://image.tmdb.org/t/p/w500${imgSrc}`} alt={title} />
       <h1>{title}</h1>
       <button onClick={onClick}>Add to Favorite</button>
-
       <p> Genre: {genre}</p>
     </div>
   );
