@@ -82,10 +82,9 @@ const Home = () => {
     setFavorites(updateFavorites);
   };
 
-  
   return (
     <>
-      <div className="header">
+      <div className="bg-gray-200 text-red-400 font-bold rounded-lg overflow-hidden shadow-lg">
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         {categories.map((item) => (
           <button
@@ -96,27 +95,31 @@ const Home = () => {
           </button>
         ))}
       </div>
-      <div className="movie-grid">
-        {/* <ToggleTheme /> */}
-        {/* <div className="movie-card"> */}
-        {filteredMovies?.length > 0 ? (
-          filteredMovies.map((item) => (
-            // <Link to={`/movie/${item.id}`}>
-            <MovieCard
-              genre={item.genre}
-              title={item.title}
-              imgSrc={item.poster_path}
-              onClick={() => toggleFavorite(filteredMovies)}
-            />
-            // </Link>
-          ))
-        ) : loading ? (
-          <div className="loader">Loading...</div>
-        ) : error ? (
-          <>Error..</>
-        ) : (
-          <>NO MOVIE FOUND</>
-        )}
+      <div className="container mx-auto px-4 py-8">
+        <h2 className="text-3xl text-gray-800 mb-6 font-bold ">Popular</h2>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {/* <ToggleTheme /> */}
+          {/* <div className="movie-card"> */}
+          {filteredMovies?.length > 0 ? (
+            filteredMovies.map((item) => (
+              // <Link to={`/movie/${item.id}`}>
+              <MovieCard
+                genre={item.genre}
+                title={item.title}
+                imgSrc={item.poster_path}
+                onClick={() => toggleFavorite(item)}
+                isFavorite={favorites.some((fav) => fav.id === item.id)}
+              />
+              // </Link>
+            ))
+          ) : loading ? (
+            <div className="loader">Loading...</div>
+          ) : error ? (
+            <>Error..</>
+          ) : (
+            <>NO MOVIE FOUND</>
+          )}
+        </div>
       </div>
       {/* </div> */}
     </>

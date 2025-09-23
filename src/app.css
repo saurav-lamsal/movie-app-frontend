@@ -1,3 +1,4 @@
+@import "tailwindcss";
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -11,11 +12,12 @@
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
 }
-.movie-card img {
+/* .movie-card img {
   width: 100%;
   height: auto;
   border-bottom: 2px solid #f0f0f0;
-}
+  object-fit: cover
+} */
 .loader {
   font-size: 20px;
   justify-content: center;
@@ -29,6 +31,8 @@
   gap: 4px;
   padding: 4px;
 }
+/* //pseudo class pseudo elemen */
+
 .category-buttons {
   padding: 4px 2px;
   border-radius: 4px;
